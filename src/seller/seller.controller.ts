@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Put, Param, Delete, HttpCode } from '@nest
 import { SellerService } from './seller.service';
 import { Seller } from './seller.entity';
 import { CreateSellerDto } from './dto/CreateSellerDto';
-import { SellerIdParams } from './params/SellerIdParams';
+import { IdParams } from './params/IdParams';
 import { UpdateSellerDto } from './dto/UpdateSellerDto';
 
 @Controller('api/seller')
@@ -21,14 +21,14 @@ export class SellerController {
 
     @Put(':id')
     @HttpCode(204)
-    update(@Param() sellerIdParams: SellerIdParams
+    update(@Param() idParams: IdParams
         , @Body() updateSellerDto: UpdateSellerDto) {
-        this.sellerService.update(sellerIdParams, updateSellerDto)
+        this.sellerService.update(idParams, updateSellerDto)
     }
 
     @Delete(':id')
     @HttpCode(204)
-    delete(@Param() sellerIdParams: SellerIdParams){
-        this.sellerService.delete(sellerIdParams)
+    delete(@Param() idParams: IdParams){
+        this.sellerService.delete(idParams)
     }
 }
