@@ -5,6 +5,7 @@ import { CreateProductDto } from './dto/CreateProductDto';
 import { SellerIdParams } from './params/SellerIdParams'
 import { SellerParams } from './params/SellerParams';
 import { UpdateProductDto } from './dto/UpdateProductDto';
+import { SearchProductQuery } from './query/SearchProductQuery';
 
 @Controller('/api/seller/:sellerId/product')
 export class ProductController {
@@ -22,12 +23,18 @@ export class ProductController {
     }
 
     @Put(':id')
-    update(@Param() sellerParams: SellerParams, @Body() updateProductDto: UpdateProductDto){
+    update(@Param() sellerParams: SellerParams, @Body() updateProductDto: UpdateProductDto) {
         this.productService.update(sellerParams, updateProductDto)
     }
 
     @Delete(':id')
-    delete(@Param() sellerParams: SellerParams){
+    delete(@Param() sellerParams: SellerParams) {
         this.productService.delete(sellerParams)
+    }
+
+    @Get('search')
+    search(@Param() sellerIdParams: SellerIdParams,
+        @Query() searchProductQuery: SearchProductQuery): Promise<Product[]> {
+        return this.productService.search(sellerIdParams, searchProductQuery)
     }
 }
