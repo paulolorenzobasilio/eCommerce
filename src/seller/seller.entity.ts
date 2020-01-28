@@ -7,5 +7,4 @@ export class Seller {
 
     @Column({length: 75})
     name: string;
-
 }
