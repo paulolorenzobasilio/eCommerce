@@ -29,7 +29,7 @@ npm run start
 ```
 
 ### Api Docs
-Import**api-swagger.yml**  in [Swagger Editor](https://editor.swagger.io/)
+Import **api-swagger.yml**  in [Swagger Editor](https://editor.swagger.io/)
 
 ## Running the tests
 
