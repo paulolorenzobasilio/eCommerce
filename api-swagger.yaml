@@ -1,0 +1,265 @@
+swagger: "2.0"
+info:
+  description: "Moscord's eCommerce API"
+  version: "0.0.1"
+  title: "Moscord eCommerce"
+host: "localhost:3000"
+basePath: "/api"
+tags:
+- name: "seller"
+  description: "Everything about Seller"
+- name: "products"
+  description: "Access seller's products"
+schemes:
+- "http"
+paths:
+  /seller:
+    get:
+      tags:
+      - "seller"
+      summary: "Fetch all seller"
+      description: ""
+      operationId: "getSeller"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+    post:
+      tags:
+      - "seller"
+      summary: "Add a new seller"
+      description: ""
+      operationId: "addSeller"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Seller object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Seller"
+      responses:
+        400:
+          description: "name should not be empty"
+        201:
+          description: "Created"
+  
+  /seller/{id}:
+    put:
+        tags:
+        - "seller"
+        summary: "Update an existing seller"
+        description: ""
+        operationId: "updateSeller"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Seller object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Seller"
+        - name: "id"
+          in: "path"
+          description: "ID of seller"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          400:
+            description: "name should not be empty"
+    delete:
+        tags: 
+        - "seller"
+        summary: "Delete an existing seller"
+        description: ""
+        operationId: "deleteSeller"
+        consumes:
+        - "application/json"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of seller"
+          required: true
+          type: "integer"
+          format: "int64"
+        responses:
+          204: 
+            description: "No content"
+  
+  /seller/{sellerId}/product:
+    get:
+      tags:
+      - "products"
+      summary: "Fetch seller's product"
+      description: ""
+      operationId: "getSellerProduct"
+      consumes: 
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sellerId"
+        in: "path"
+        description: "Id of seller"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "OK"
+    post:
+      tags:
+        - "products"
+      summary: "Add seller's product"
+      description: ""
+      operationId: "addSellerProduct"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "sellerId"
+        in: "path"
+        description: "Id of seller"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "body"
+        in: "body"
+        description: "Product object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Products"
+      responses:
+        201:
+          description: "Created"
+  
+  /seller/{sellerId}/product/{id}:
+    put:
+      tags:
+        - "products"
+      summary: "Update seller's product"
+      description: ""
+      operationId: "updateSellerProduct"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "sellerId"
+          in: "path"
+          description: "Id of seller"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "id"
+          in: "path"
+          description: "Id of product"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "body"
+          in: "body"
+          description: "Product object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/Products"
+      responses:
+        204:
+          description: "No Content"
+    delete:
+      tags:
+        - "products"
+      summary: "Delete seller's product"
+      description: ""
+      operationId: "deleteSellerProduct"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "sellerId"
+          in: "path"
+          description: "Id of seller"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "id"
+          in: "path"
+          description: "Id of product"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        204:
+          description: "No Content"
+  
+  /seller/{sellerId}/product/{id}/search:
+    get:
+      tags:
+        - "products"
+      summary: "Search seller's product"
+      description: ""
+      operationId: "searchSellerProduct"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "sellerId"
+          in: "path"
+          description: "Id of seller"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "id"
+          in: "path"
+          description: "Id of product"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "name"
+          in: "query"
+          type: "string"
+          description: "Name of the product"
+        - name: "description"
+          in: "query"
+          type: "string"
+          description: "Description of the product"
+      responses:
+        200:
+          description: "OK"
+  
+definitions:
+  Seller:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "Marks & Co."
+  Products:
+    type: "object"
+    required:
+    - "name"
+    - "description"
+    properties:
+      name:
+        type: "string"
+        example: "CDO Carne Norte"
+      description:
+        type: "string"
+        example: "Canned corned beef"
