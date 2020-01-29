@@ -40,6 +40,7 @@ npm run test
 ## Built With
 
 * [NestJS](https://nestjs.com/) - The web framework used
+* [Swagger](https://editor.swagger.io/) - For API docs
 
 ## Acknowledgments
 
